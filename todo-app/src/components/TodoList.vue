@@ -1,14 +1,17 @@
 <template>
-    <div>
+    <div class="todolist">
       <p>Compleded Task: {{todos.filter(todo => {return todo.done === true}).length}}</p>
       <p>Pending Task: {{todos.filter(todo => {return todo.done === false}).length}}</p>
       <div class="ui centered card" v-for="todo in todos" :key="todo.id">
-        <div class="content">
+        <div class="content" v-bind:class="{ 'is-done': todo.done, 'in-progress': !todo.done }">
           <div class="header">
             {{todo.title}}
           </div>
           <div class="meta">
             {{todo.project}}
+          </div>
+          <div class="meta">
+            {{todo.done === true ? 'Done' : 'In progress'}}
           </div>
           <div class="extra content">
             <span class="right floated edit icon">
@@ -16,10 +19,10 @@
             </span>
           </div>
         </div>
-        <div class="ui bottom attached green basic button" v-show="todo.done">
+        <div class="ui bottom attached green basic button" v-show="todo.done" @click="todo.done = false">
           Completed
         </div>
-        <div class="ui bottom attached red basic button" v-show="!todo.done">
+        <div class="ui bottom attached red basic button" v-show="!todo.done" @click="todo.done = true">
           Complete
         </div>
       </div>
@@ -33,5 +36,16 @@ export default {
 </script>
 
 <style scoped>
-
+  .todolist {
+    display: flex;
+    flex-direction: column;
+    width: 1200px;
+    margin:50px auto;
+  }
+  .is-done{
+    background-color: green !important;
+  }
+  .in-progress{
+    background-color: yellow !important;
+  }
 </style>
