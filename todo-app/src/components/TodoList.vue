@@ -2,7 +2,7 @@
     <div class="todolist">
       <p>Compleded Task: {{todos.filter(todo => {return todo.done === true}).length}}</p>
       <p>Pending Task: {{todos.filter(todo => {return todo.done === false}).length}}</p>
-      <todo v-on:remove-todo="deleteTodo" v-for="todo in todos" :key="todo.id" :todo.sync="todo"></todo>
+      <todo v-on:delete-todo="deleteTodo" v-for="todo in todos" :key="todo.id" :todo.sync="todo"></todo>
     </div>
 </template>
 
@@ -16,7 +16,6 @@ export default {
   methods: {
     deleteTodo (todo) {
       const todoIndex = this.todos.indexOf(todo)
-      console.log(todoIndex)
       this.todos.splice(todoIndex, 1)
     }
   }
